@@ -388,7 +388,7 @@ class Root(CMakePackage):
 
     # Optional dependencies
     depends_on("arrow", when="+arrow")
-    depends_on("civetweb +shared", when="+http")
+    #depends_on("civetweb +shared", when="+http")
     depends_on("cuda", when="+cuda")
     depends_on("cuda", when="+cudnn")
     depends_on("cudnn", when="+cudnn")
@@ -656,7 +656,7 @@ class Root(CMakePackage):
 
         options += [
             define("builtin_cfitsio", False),
-            define("builtin_civetweb", False),
+            define("builtin_civetweb", True),
             define("builtin_clang", True),  # use builtin_clang even when ~builtin_llvm
             define("builtin_davix", False),
             define("builtin_fftw3", False),
