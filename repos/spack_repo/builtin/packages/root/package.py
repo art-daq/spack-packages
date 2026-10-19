@@ -307,6 +307,7 @@ class Root(CMakePackage):
         default=True,
         description="Use ROOT's bundled copy of LLVM (but bundled clang is always used)",
     )
+    variant("builtin_civetweb", default=True, description="Use builtin civetweb to avoid problems with upstream")
 
     # ###################### Compiler variants ########################
 
@@ -388,7 +389,7 @@ class Root(CMakePackage):
 
     # Optional dependencies
     depends_on("arrow", when="+arrow")
-    #depends_on("civetweb +shared", when="+http")
+    depends_on("civetweb +shared", when="+http-builtin_civetweb")
     depends_on("cuda", when="+cuda")
     depends_on("cuda", when="+cudnn")
     depends_on("cudnn", when="+cudnn")
@@ -656,7 +657,7 @@ class Root(CMakePackage):
 
         options += [
             define("builtin_cfitsio", False),
-            define("builtin_civetweb", True),
+            define_from_variant("builtin_civetweb"),
             define("builtin_clang", True),  # use builtin_clang even when ~builtin_llvm
             define("builtin_davix", False),
             define("builtin_fftw3", False),
